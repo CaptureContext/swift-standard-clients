@@ -4,7 +4,16 @@
 
 Client declarations and live implementations for standard iOS managers
 
+>  More info about client approach:
+> | Source                                                       | Description                                     |
+> | ------------------------------------------------------------ | ----------------------------------------------- |
+> | [Brandon Williams - Protocol Witnesses](https://www.youtube.com/watch?v=3BVkbWXcFS4) | Talk on App Builders Conference 2019            |
+> | [Pointfree - Protocol Witnesses](https://www.pointfree.co/collections/protocol-witnesses) | Pointfree collection                            |
+> | [pointfree/isowords](https://github.com/pointfreeco/isowords/tree/main/Sources) | Examples of different clients can be found here |
 
+
+
+#### Table of contents
 
 | Description | Interface | Implementations |
 | ------------- | ------------- | ------------- |
