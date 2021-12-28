@@ -1,4 +1,4 @@
-import _DataRepresentable
+import DataRepresentable
 import Foundation
 import Prelude
 
@@ -8,7 +8,7 @@ extension KeychainClient {
 
 extension KeychainClient.Operations {
   public struct Save: Function {
-    public typealias Input = (String, _DataRepresentable, AccessPolicy)
+    public typealias Input = (KeychainClient.Key, Data, AccessPolicy)
     public typealias Output = Void
     
     public init(_ call: @escaping Signature) {
@@ -18,10 +18,10 @@ extension KeychainClient.Operations {
     public var call: Signature
     
     public func callAsFunction(
-      _ value: _DataRepresentable,
-      forKey key: String,
+      _ value: DataRepresentable,
+      forKey key: KeychainClient.Key,
       policy: AccessPolicy = .default
-    ) { return call((key, value, policy)) }
+    ) { return call((key, value.dataRepresentation, policy)) }
     
     public enum AccessPolicy {
       public static var `default`: AccessPolicy { .accessibleWhenUnlocked }
@@ -52,7 +52,7 @@ extension KeychainClient.Operations {
   }
   
   public struct Load: Function {
-    public typealias Input = String
+    public typealias Input = KeychainClient.Key
     public typealias Output = Data?
     
     public init(_ call: @escaping Signature) {
@@ -61,17 +61,16 @@ extension KeychainClient.Operations {
     
     public var call: Signature
     
-    public func callAsFunction<Value: _DataRepresentable>(
+    public func callAsFunction<Value: DataRepresentable>(
       of type: Value.Type = Value.self,
-      forKey key: String
+      forKey key: KeychainClient.Key
     ) -> Value? {
-      return call(key)
-        .flatMap(Value.init(_data:))
+      return call(key).flatMap(Value.init(dataRepresentation:))
     }
   }
   
   public struct Remove: Function {
-    public typealias Input = String
+    public typealias Input = KeychainClient.Key
     public typealias Output = Void
     
     public init(_ call: @escaping Signature) {
@@ -79,7 +78,7 @@ extension KeychainClient.Operations {
     }
     
     public var call: Signature
-    public func callAsFunction(forKey key: String) {
+    public func callAsFunction(forKey key: KeychainClient.Key) {
       return call(key)
     }
   }

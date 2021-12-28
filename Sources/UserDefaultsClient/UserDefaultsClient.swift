@@ -17,7 +17,11 @@ public struct UserDefaultsClient {
 }
 
 extension UserDefaultsClient {
-  public struct Key: RawRepresentable, ExpressibleByStringLiteral, ExpressibleByStringInterpolation {
+  public struct Key:
+    RawRepresentable,
+    ExpressibleByStringLiteral,
+    ExpressibleByStringInterpolation
+  {
     public var rawValue: String
 
     public init(rawValue: String) {
@@ -32,8 +36,8 @@ extension UserDefaultsClient {
       return .bundle(.main, key)
     }
 
-    public static func bundle(_ bundle: Bundle?, _ key: Key) -> Key {
-      let prefix = bundle?.bundleIdentifier.map { $0.appending(".") } ?? ""
+    public static func bundle(_ bundle: Bundle, _ key: Key) -> Key {
+      let prefix = bundle.bundleIdentifier.map { $0.appending(".") } ?? ""
       return .init(rawValue: prefix.appending(key.rawValue))
     }
   }

@@ -1,4 +1,5 @@
 import UserDefaultsClient
+import DataRepresentable
 import Foundation
 
 extension UserDefaultsClient {
@@ -7,7 +8,7 @@ extension UserDefaultsClient {
   public static func live(for userDefaults: UserDefaults) -> UserDefaultsClient {
     UserDefaultsClient(
       saveValue: .init { key, value in
-        userDefaults.setValue(value._data, forKey: key.rawValue)
+        userDefaults.setValue(value.dataRepresentation, forKey: key.rawValue)
       },
       loadValue: .init { key in
         userDefaults.object(forKey: key.rawValue) as? Data

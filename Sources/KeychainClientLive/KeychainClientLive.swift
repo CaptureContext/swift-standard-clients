@@ -13,14 +13,14 @@ extension KeychainClient {
   ) -> KeychainClient {
     let keychain = Keychain(keyPrefix: keyPrefix, accessGroup: accessGroup)
     return KeychainClient(
-      saveValue: .init { key, value, policy in
-        keychain.setData(value._data, forKey: key, policy: .init(policy))
+      saveValue: .init { key, data, policy in
+        keychain.setData(data, forKey: key.rawValue, policy: .init(policy))
       },
       loadValue: .init { key in
-        try? keychain.loadData(forKey: key).get()
+        try? keychain.loadData(forKey: key.rawValue).get()
       },
       removeValue: .init { key in
-        keychain.delete(key: key)
+        keychain.delete(key: key.rawValue)
       }
     )
   }
