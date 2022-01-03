@@ -17,11 +17,28 @@ Client declarations and live implementations for standard iOS managers
 
 | Description | Interface | Implementations |
 | ------------- | ------------- | ------------- |
-| [Caching](#Caching) | [CacheClient](Sources/CacheClient)  | [MemoryCacheClient](Sources/CacheClientLive) |
+| [Caching](#Caching) | [CacheClient](Sources/CacheClient)  | [MemoryCacheClient](Sources/MemoryCacheClientLive) |
 | [IDFA](#IDFA) | [IDFAPermissionsClient](Sources/IDFAPermissionsClient)  | [IDFAPermissionsClientLive](Sources/IDFAPermissionsClientLive) |
 | [Keychain](#Keychain) | [KeychainClient](Sources/KeychainClient)  | [KeychainClientLive](Sources/KeychainClientLive) |
-| [Notifications](#Notifications) | [NotificationsPermissionsClient](Sources/NotificationsPermissionsClient)  | [KeychainClientLive](Sources/KeychainClientLive) |
-| [UserDefaults](#UserDefaults) | [UserDefaultsClient](Sources/UserDefaultsClient)  | [UserDefaultsClientLive](Sources/UserDefaultsClientLive) |
+| [Notifications](#Notifications) | [NotificationsPermissionsClient](Sources/NotificationsPermissionsClient)  | [NotificationsPermissionsClientLive](Sources/NotificationsPermissionsClientLive) |
+| [HapticEngine](#HapticEngine) | [HapticEngineClient](Sources/HapticEngineClient) | [HapticEngineClientLive](Sources/HapticEngineClientLive) |
+| [UserDefaults](#UserDefaults) | [UserDefaultsClient](Sources/UserDefaultsClient)             | [UserDefaultsClientLive](Sources/UserDefaultsClientLive) |
+
+
+
+### Todos
+
+- [ ] Improve readme by adding examples and simplifying descriptions.
+- [ ] Add LocalAuthenticationClient [ _Soon_ ]
+- [ ] Find out if it's better to use `Any`-based UserDefaults storage instead of `DataRepresentable`-based.
+- Add more tests
+  - [ ] Caching
+  - [ ] IDFA
+  - [ ] Keychain
+  - [ ] Notifications
+  - [ ] HapticEngine
+  - [ ] UserDefaults
+  - [x] DataRepresentable
 
 
 
@@ -122,6 +139,24 @@ Client declarations and live implementations for standard iOS managers
 
 
 
+## HapticEngine
+
+`HapticEngineClient` is a factory-client for `HapticFeedback` clients. `HapticFeedback` is a client for `UIFeedbackGenerator`.
+
+### Usage
+
+```swift
+import HapticEngineClientLive
+
+// If you need just one generator you can use HapticFeedback directly
+HapticFeedback.success.trigger()
+
+// Otherwise if you need more flexible way to create Haptic feedbacks use HapticEngineClient
+HapticEngineClient.live.generator(for: .success).trigger()
+```
+
+
+
 ## UserDefaults
 
 `UserDefaultsClient` is a client for UserDefaults object, it **stores objects as data** (Using [`DataRepresentable`](#DataRepresentable) protocol) and provides interfaces for the following operations:
@@ -158,7 +193,7 @@ If you use SwiftPM for your project, you can add StandardClients to your package
 .package(
   name: "swift-standard-clients",
   url: "https://github.com/capturecontext/swift-standard-clients.git", 
-  .upToNextMinor(from: "0.0.1")
+  .upToNextMinor(from: "0.1.0")
 )
 ```
 

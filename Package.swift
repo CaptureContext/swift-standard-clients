@@ -30,6 +30,18 @@ let package = Package(
       targets: ["DataRepresentable"]
     ),
     
+    // MARK: HapticEngine
+    .library(
+      name: "HapticEngineClient",
+      type: .static,
+      targets: ["HapticEngineClient"]
+    ),
+    .library(
+      name: "HapticEngineClientLive",
+      type: .static,
+      targets: ["HapticEngineClientLive"]
+    ),
+    
     // MARK: IDFA
     .library(
       name: "IDFAPermissionsClient",
@@ -107,6 +119,23 @@ let package = Package(
     // MARK: DataRepresentable
     .target(name: "DataRepresentable"),
     
+    // MARK: HapticEngine
+    .target(
+      name: "HapticEngineClient",
+      dependencies: [
+        .product(
+          name: "Prelude",
+          package: "swift-prelude"
+        )
+      ]
+    ),
+    .target(
+      name: "HapticEngineClientLive",
+      dependencies: [
+        .target(name: "HapticEngineClient")
+      ]
+    ),
+    
     // MARK: IDFA
     .target(
       name: "IDFAPermissionsClient",
@@ -139,6 +168,10 @@ let package = Package(
       name: "KeychainClientLive",
       dependencies: [
         .target(name: "KeychainClient")
+      ],
+      exclude: [
+        "Keychain/Licence/LICENCE",
+        "Keychain/Licence/README"
       ]
     ),
     
