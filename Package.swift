@@ -66,6 +66,18 @@ let package = Package(
       targets: ["KeychainClientLive"]
     ),
     
+    // MARK: LocalAuthentication
+    .library(
+      name: "LocalAuthenticationClient",
+      type: .static,
+      targets: ["LocalAuthenticationClient"]
+    ),
+    .library(
+      name: "LocalAuthenticationClientLive",
+      type: .static,
+      targets: ["LocalAuthenticationClientLive"]
+    ),
+    
     // MARK: Notifications
     .library(
       name: "NotificationsPermissionsClient",
@@ -172,6 +184,23 @@ let package = Package(
       exclude: [
         "Keychain/Licence/LICENCE",
         "Keychain/Licence/README"
+      ]
+    ),
+    
+    // MARK: LocalAuthentication
+    .target(
+      name: "LocalAuthenticationClient",
+      dependencies: [
+        .product(
+          name: "Prelude",
+          package: "swift-prelude"
+        )
+      ]
+    ),
+    .target(
+      name: "LocalAuthenticationClientLive",
+      dependencies: [
+        .target(name: "LocalAuthenticationClient")
       ]
     ),
     
