@@ -11,6 +11,18 @@ let package = Package(
     .watchOS(.v6)
   ],
   products: [
+    // MARK: Exports
+    .library(
+      name: "StandardClients",
+      type: .static,
+      targets: ["StandardClients"]
+    ),
+    .library(
+      name: "StandardClientsLive",
+      type: .static,
+      targets: ["StandardClientsLive"]
+    ),
+    
     // MARK: Cache
     .library(
       name: "CacheClient",
@@ -98,6 +110,30 @@ let package = Package(
     )
   ],
   targets: [
+    // MARK: Exports
+    .target(
+      name: "StandardClients",
+      dependencies: [
+        .target(name: "CacheClient"),
+        .target(name: "HapticEngineClient"),
+        .target(name: "IDFAPermissionsClient"),
+        .target(name: "KeychainClient"),
+        .target(name: "NotificationsPermissionsClient"),
+        .target(name: "UserDefaultsClient")
+      ]
+    ),
+    .target(
+      name: "StandardClientsLive",
+      dependencies: [
+        .target(name: "MemoryCacheClient"),
+        .target(name: "HapticEngineClientLive"),
+        .target(name: "IDFAPermissionsClientLive"),
+        .target(name: "KeychainClientLive"),
+        .target(name: "NotificationsPermissionsClientLive"),
+        .target(name: "UserDefaultsClientLive")
+      ]
+    ),
+    
     // MARK: Cache
     .target(
       name: "CacheClient",
